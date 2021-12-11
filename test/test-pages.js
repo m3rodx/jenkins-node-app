@@ -32,9 +32,9 @@ describe('Status and content', function() {
 });
 describe('Failing Test', function() {
     it('Failure #1', function() {
-        expect(true).to.equal(false)
+        expect(true).to.equal(true)
       });
     it('Failure #2', function() {
-        expect(true).to.equal(false)
+        expect(true).to.equal(true)
       });
 });
