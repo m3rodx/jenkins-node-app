@@ -13,18 +13,19 @@ pipeline {
                     testResults: 'junit-report.xml'])
             }
         }
-        if (currentBuild.result != 'UNSTABLE') {
-            stage('Build Docker Image') {
-                steps {
-                    echo "Building Docker Image"
-                }
+        when {
+                expression {currentBuild != 'UNSTABLE'}
+        }
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker Image"
             }
-            stage('Push Docker Image') {
-                steps {
-                    echo "Pushing Docker Image"
-                }
+        }
+        stage('Push Docker Image') {
+            steps {
+                echo "Pushing Docker Image"
             }
-        }    
+        }   
     }
     post {
         always {
