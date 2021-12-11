@@ -35,7 +35,6 @@ pipeline {
                 thresholds: [ skipped(failureThreshold: '0'), failed(unstableThreshold: '3') ],
                 tools: [ JUnit(pattern: 'junit-report.xml') ])
             )
-            junit 'junit-report.xml'
         }
         unstable {
              emailext (
