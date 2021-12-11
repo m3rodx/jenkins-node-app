@@ -31,20 +31,23 @@ pipeline {
             echo 'I succeeded!'
         }
         always {
-            xunit (
-                thresholds: [ skipped(failureThreshold: '0'), failed(unstableThreshold: '3') ],
-                tools: [ JUnit(pattern: 'junit-report.xml') ])
+            junit 'junit-report.xml'
         }
         unstable {
              emailext (
                  to: 'moore.rodney@gmail.com',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 subject: "${currentBuild.result} Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
 
              )
         }
         failure {
-            echo 'I failed :('
+            emailext (
+                 to: 'moore.rodney@gmail.com',
+                 subject: "${currentBuild.result} Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
+
+            )
         }
         changed {
             echo 'Things were different before...'
