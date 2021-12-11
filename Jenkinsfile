@@ -13,8 +13,7 @@ pipeline {
         stage('Test with Mocha') {
             steps {
                 sh 'MOCHA_FILE=./junit-report.xml ./node_modules/.bin/mocha test --reporter mocha-junit-reporter --exit'
-                step([$class: 'JUnitResultArchiver',
-                    testResults: 'junit-report.xml'])
+                junit 'junit-report.xml'
             }
         }
         stage('Build Docker Image') {
