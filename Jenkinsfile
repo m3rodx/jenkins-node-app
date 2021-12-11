@@ -27,16 +27,23 @@ pipeline {
         }   
     }
     post {
-        always {
-            junit 'junit-report.xml'
-        }
         success {
             echo 'I succeeded!'
         }
+        always {
+            xunit (
+                thresholds: [ skipped(failureThreshold: '0'), failed(unstableThreshold: '3') ],
+                tools: [ JUnit(pattern: 'junit-report.xml') ])
+            )
+            junit 'junit-report.xml'
+        }
         unstable {
-             mail to: 'moore.rodney@gmail.com',
-                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
+             emailext (
+                 to: 'moore.rodney@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
+
+             )
         }
         failure {
             echo 'I failed :('
