@@ -1,9 +1,8 @@
 pipeline {
+    def app
+
     agent any
     tools {nodejs "default"}
-    environment {
-        CI = 'true'
-    }
     stages {
         stage('Install dependencies') {
             steps {
