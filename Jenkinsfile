@@ -21,25 +21,32 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                echo "Building Docker Image"
+                script {
+                    echo "Building Docker Image"
 
-                app = docker.build("moorerod/jenkins-node")
+                    app = docker.build("moorerod/jenkins-node")
+                }
             }
         }
         stage('Test Docker Image') {
             steps {
-                echo "Testing Docker Image"
-                app.inside {
-                    sh 'echo "Tests passed"'
+                script {
+                    echo "Testing Docker Image"
+                    app.inside {
+                        sh 'echo "Tests passed"'
+                    }
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
-                echo "Pushing Docker Image"
-                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+                script {
+                    echo "Pushing Docker Image"
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                }
+
         }
             }
         }   
