@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0570" tests="5" failures="2">
+  <testsuite name="Root Suite" timestamp="2021-12-11T04:48:53" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Status and content" timestamp="2021-12-11T04:48:53" tests="0" file="/Users/rodney/Documents/GitHub/jenkins-node-app/test/test-pages.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Main page" timestamp="2021-12-11T04:48:53" tests="2" file="/Users/rodney/Documents/GitHub/jenkins-node-app/test/test-pages.js" time="0.0470" failures="0">
+    <testcase name="Status and content Main page status" time="0.0420" classname="status">
+    </testcase>
+    <testcase name="Status and content Main page content" time="0.0030" classname="content">
+    </testcase>
+  </testsuite>
+  <testsuite name="About page" timestamp="2021-12-11T04:48:53" tests="1" file="/Users/rodney/Documents/GitHub/jenkins-node-app/test/test-pages.js" time="0.0040" failures="0">
+    <testcase name="Status and content About page status" time="0.0040" classname="status">
+    </testcase>
+  </testsuite>
+  <testsuite name="Failing Test" timestamp="2021-12-11T04:48:53" tests="2" file="/Users/rodney/Documents/GitHub/jenkins-node-app/test/test-pages.js" time="0.0040" failures="2">
+    <testcase name="Failing Test Failure #1" time="0.0010" classname="Failure #1">
+      <failure message="expected true to equal false" type="AssertionError"><![CDATA[AssertionError: expected true to equal false
+    at Context.<anonymous> (test/test-pages.js:35:25)
+    at processImmediate (node:internal/timers:464:21)]]></failure>
+    </testcase>
+    <testcase name="Failing Test Failure #2" time="0.0000" classname="Failure #2">
+      <failure message="expected true to equal false" type="AssertionError"><![CDATA[AssertionError: expected true to equal false
+    at Context.<anonymous> (test/test-pages.js:38:25)
+    at processImmediate (node:internal/timers:464:21)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
