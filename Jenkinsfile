@@ -1,9 +1,14 @@
-node {
-    def app
-
+pipeline {
     agent any
     tools {nodejs "default"}
     stages {
+        stage('Defining variables') {
+            steps {
+                script {
+                    def app
+                }
+            }
+        }
         stage('Install dependencies') {
             steps {
                 sh 'npm install'
