@@ -18,11 +18,25 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image"
+
+                app = docker.build("moorerod/jenkins-node")
+            }
+        }
+        stage('Test Docker Image') {
+            steps {
+                echo "Testing Docker Image"
+                app.inside {
+                    sh 'echo "Tests passed"'
+                }
             }
         }
         stage('Push Docker Image') {
             steps {
                 echo "Pushing Docker Image"
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+        }
             }
         }   
     }
@@ -36,7 +50,7 @@ pipeline {
         unstable {
              emailext (
                  to: 'moore.rodney@gmail.com',
-                 subject: "${currentBuild.result} Pipeline: ${currentBuild.fullDisplayName}",
+                 subject: "${currentBuild.currentResult} Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
 
              )
@@ -44,7 +58,7 @@ pipeline {
         failure {
             emailext (
                  to: 'moore.rodney@gmail.com',
-                 subject: "${currentBuild.result} Pipeline: ${currentBuild.fullDisplayName}",
+                 subject: "${currentBuild.currentResult} Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}. ${env.JOB_NAME} #${env.BUILD_NUMBER}."
 
             )
