@@ -13,9 +13,6 @@ pipeline {
                     testResults: 'junit-report.xml'])
             }
         }
-        when {
-                expression {currentBuild != 'UNSTABLE'}
-        }
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image"
