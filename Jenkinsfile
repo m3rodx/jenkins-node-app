@@ -13,7 +13,6 @@ pipeline {
         stage('Test with Mocha') {
             steps {
                 sh 'MOCHA_FILE=./junit-report.xml ./node_modules/.bin/mocha test --reporter mocha-junit-reporter --exit'
-                junit 'junit-report.xml'
             }
         }
         stage('Build Docker Image') {
@@ -29,7 +28,7 @@ pipeline {
     }
     post {
         always {
-            echo 'One way or another, I have finished'
+            junit 'junit-report.xml'
         }
         success {
             echo 'I succeeded!'
